@@ -29,6 +29,7 @@ def lalala(message):
             a = top.values.tolist()
             b = datetime.datetime.today().strftime('%A')
             bot.send_message(message.chat.id, b)
+            bot.send_message(message.chat.id, "hello")
             print(a)
 
             for i in range(len(a)):

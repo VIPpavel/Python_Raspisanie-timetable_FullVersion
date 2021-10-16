@@ -22,7 +22,7 @@ def lalala(message):
     if message.chat.type == "private":
         if message.text == "расписание на сегодня":  # курс биткоина
             cols = [0,2]
-            top = pd.read_excel('C:/Users/Pavel/Downloads/raspis.xlsx', nrows=4, usecols=cols)
+            top = pd.read_excel('raspis.xlsx', nrows=4, usecols=cols)
             a = top.values.tolist()
             b = datetime.datetime.today().strftime('%A')
             bot.send_message(message.chat.id, b)
@@ -36,7 +36,7 @@ def lalala(message):
 
         elif message.text== "расписание на неделю":
             cols = [0, 1]
-            top = pd.read_excel('C:/Users/Pavel/Downloads/raspis.xlsx', nrows=4, usecols=cols)
+            top = pd.read_excel('raspis.xlsx', nrows=4, usecols=cols)
             a = top.values.tolist()
             b = datetime.datetime.today().strftime('%A')
 

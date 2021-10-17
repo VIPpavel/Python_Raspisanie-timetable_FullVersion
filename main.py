@@ -10,7 +10,7 @@ bot = telebot.TeleBot(config.TOKEN)
 def welcome(message):
     markup = telebot.types.ReplyKeyboardMarkup(resize_keyboard=True)
     item1 = telebot.types.KeyboardButton("расписание на сегодня")
-    item2 = telebot.types.KeyboardButton("расписание на неделю")
+    item2 = telebot.types.KeyboardButton("расписание на завтра")
 
     markup.add(item1, item2)
     bot.send_message(message.chat.id,
@@ -24,31 +24,54 @@ def lalala(message):
     # bot.send_message(message.chat.id, message.text)
     if message.chat.type == "private":
         if message.text == "расписание на сегодня":  # курс биткоина
-            cols = [0, 2]
-            top = pd.read_excel('raspis.xlsx', nrows=4, usecols=cols)
-            a = top.values.tolist()
             b = datetime.datetime.today().strftime('%A')
-            bot.send_message(message.chat.id, b)
-            bot.send_message(message.chat.id, "hello")
-            print(a)
-
-            for i in range(len(a)):
-                bot.send_message(message.chat.id, str(i + 1) + "-----------")
-                for j in range(len(a[i])):
-                    bot.send_message(message.chat.id, a[i][j])
-
-
-        elif message.text == "расписание на неделю":
-            cols = [0, 1]
-            top = pd.read_excel('raspis.xlsx', nrows=4, usecols=cols)
+            cols = []
+            if b == ('Sunday' or 'Monday' or 'Saturday'):
+                cols = [1]
+            elif b == 'Monday':
+                cols = [1]
+            elif b == 'Tuesday':
+                cols = [2]
+            elif b == 'Wednesday':
+                cols = [3]
+            elif b == 'Thursday':
+                cols = [4]
+            elif b == 'Friday':
+                cols = [5]
+            top = pd.read_excel('raspis.xlsx', nrows=7, usecols=cols)
             a = top.values.tolist()
-            b = datetime.datetime.today().strftime('%A')
-
-            print(a)
-            print(b)
+            c = []
             for i in range(len(a)):
                 for j in range(len(a[i])):
-                    bot.send_message(message.chat.id, a[i][j])
+                    c.append(a[i][j])
+                c.append("\n")
+                v = ''.join(c)
+            bot.send_message(message.chat.id, b +'\n' + v)
+
+        elif message.text == "расписание на завтра":
+            b = datetime.datetime.today().strftime('%A')
+            cols = []
+            if b == ('Sunday' or 'Saturday'):
+                cols = [1]
+            elif b == 'Monday':
+                cols = [2]
+            elif b == 'Tuesday':
+                cols = [3]
+            elif b == 'Wednesday':
+                cols = [4]
+            elif b == 'Thursday':
+                cols = [5]
+            elif b == 'Friday':
+                cols = [1]
+            top = pd.read_excel('raspis.xlsx', nrows=7, usecols=cols)
+            a = top.values.tolist()
+            c = []
+            for i in range(len(a)):
+                for j in range(len(a[i])):
+                    c.append(a[i][j])
+                c.append("\n")
+                v = ''.join(c)
+            bot.send_message(message.chat.id, b + '\n' + v)
 
 
 bot.polling(none_stop=True)

@@ -26,7 +26,7 @@ def lalala(message):
         if message.text == "расписание на сегодня":  # курс биткоина
             b = datetime.datetime.today().strftime('%A')
             cols = []
-            if b == ('Sunday' or 'Monday' or 'Saturday'):
+            if b == 'Sunday' or 'Monday' or 'Saturday':
                 cols = [1]
             elif b == 'Monday':
                 cols = [1]
@@ -38,6 +38,7 @@ def lalala(message):
                 cols = [4]
             elif b == 'Friday':
                 cols = [5]
+            print(cols)
             top = pd.read_excel('raspis.xlsx', nrows=7, usecols=cols)
             a = top.values.tolist()
             c = []
@@ -45,13 +46,14 @@ def lalala(message):
                 for j in range(len(a[i])):
                     c.append(a[i][j])
                 c.append("\n")
-                v = ''.join(c)
-            bot.send_message(message.chat.id, b +'\n' + v)
+                print(c)
+                h = ''.join(c)
+            bot.send_message(message.chat.id, b +'\n' + h)
 
         elif message.text == "расписание на завтра":
             b = datetime.datetime.today().strftime('%A')
             cols = []
-            if b == ('Sunday' or 'Saturday'):
+            if b == 'Sunday' or 'Saturday':
                 cols = [1]
             elif b == 'Monday':
                 cols = [2]

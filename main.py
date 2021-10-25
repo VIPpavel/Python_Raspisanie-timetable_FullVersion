@@ -28,8 +28,6 @@ def lalala(message):
             cols = []
             if b == 'Sunday' or 'Monday' or 'Saturday':
                 cols = [1]
-            elif b == 'Monday':
-                cols = [1]
             elif b == 'Tuesday':
                 cols = [2]
             elif b == 'Wednesday':
@@ -51,19 +49,22 @@ def lalala(message):
             bot.send_message(message.chat.id, b +'\n' + h)
 
         elif message.text == "расписание на завтра":
-            b = datetime.datetime.today().strftime('%A')
+            d = datetime.datetime.today().strftime('%A')
             cols = []
-            if b == 'Sunday' or 'Saturday':
+            print(d)
+            if d == 'Sunday':
                 cols = [1]
-            elif b == 'Monday':
+            elif d == 'Saturday':
+                cols = [1]
+            elif d == 'Monday':
                 cols = [2]
-            elif b == 'Tuesday':
+            elif d == 'Tuesday':
                 cols = [3]
-            elif b == 'Wednesday':
+            elif d == 'Wednesday':
                 cols = [4]
-            elif b == 'Thursday':
+            elif d == 'Thursday':
                 cols = [5]
-            elif b == 'Friday':
+            elif d == 'Friday':
                 cols = [1]
             top = pd.read_excel('raspis.xlsx', nrows=7, usecols=cols)
             a = top.values.tolist()
@@ -73,7 +74,8 @@ def lalala(message):
                     c.append(a[i][j])
                 c.append("\n")
                 v = ''.join(c)
-            bot.send_message(message.chat.id, b + '\n' + v)
+            print(cols)
+            bot.send_message(message.chat.id, d + '\n' + v)
 
 
 bot.polling(none_stop=True)

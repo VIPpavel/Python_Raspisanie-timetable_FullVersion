@@ -26,7 +26,7 @@ def lalala(message):
         if message.text == "расписание на сегодня":  # курс биткоина
             b = datetime.datetime.today().strftime('%A')
             cols = []
-            if b == 'Sunday' or 'Monday' or 'Saturday':
+            if b == 'Sunday' or b == 'Monday' or b == 'Saturday':
                 cols = [1]
             elif b == 'Tuesday':
                 cols = [2]
@@ -51,7 +51,6 @@ def lalala(message):
         elif message.text == "расписание на завтра":
             d = datetime.datetime.today().strftime('%A')
             cols = []
-            print(d)
             if d == 'Sunday':
                 cols = [1]
             elif d == 'Saturday':
@@ -74,7 +73,6 @@ def lalala(message):
                     c.append(a[i][j])
                 c.append("\n")
                 v = ''.join(c)
-            print(cols)
             bot.send_message(message.chat.id, d + '\n' + v)
 
 
